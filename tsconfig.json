@@ -1,25 +1,21 @@
-/* tsconfig.json */
-
 {
-  "compilerOptions":{
-    "target":"es6",
-    "lib": ["ES6"],
-    "module":"commonjs",
-    "outDir":"dist/",
-    "rootDir":"src/",
-    "strict": true,
-    "sourceMap": true,
-    "moduleResolution":"node",
-    "esModuleInterop":true,
-    "alwaysStrict": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
     "removeComments": true,
-    "strictNullChecks": true,
-   },
-   "include":[
-    "D:/Programming/TS/wantedCrawlerDataServer/src/**/*"
-   ],
-   "exclude": [
-    "D:/Programming/TS/wantedCrawlerDataServer/node_modules",
-    "D:/Programming/TS/wantedCrawlerDataServer/**/*.spec.ts"
-   ]
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }
