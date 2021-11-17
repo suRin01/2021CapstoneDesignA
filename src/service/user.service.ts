@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
-import { queryString } from "../common/query";
+import { userQueryString } from "../common/query";
 import { executionResult, UserDTO } from "../dto/user.dto";
 import { dateParser } from "../util/dateParser";
 import { createUserDTO } from "../dto/createUser.dto";
@@ -11,30 +11,36 @@ export class UserServcie {
 	constructor(private readonly mapper: Mapper) {}
 
 	async getUser(id: string): Promise<executionResult> {
-		return await this.mapper.mapper(queryString.findOne, [id]);
+		return await this.mapper.mapper(userQueryString.findOne, [id]);
 	}
 
 	async createUser(user: createUserDTO): Promise<executionResult> {
-		return await this.mapper.mapper(queryString.createOne, [
+		return await this.mapper.mapper(userQueryString.createOne, [
 			user.name,
 			user.id,
+			user.profileImage,
 			user.password,
+			user.email,
 			user.phoneNumber,
 			dateParser.dbDateFormatter(user.birthDate),
 			user.gender,
-			user.mainCharacter,
 		]);
 	}
 
 	async updateUser(user: UpdateUserDTO): Promise<executionResult> {
-		return await this.mapper.mapper(queryString.updateOne, [
+		return await this.mapper.mapper(userQueryString.updateOne, [
 			user.name,
 			user.id,
+			user.profileImage,
 			user.password,
+			user.email,
+			user.phoneNumber,
+			dateParser.dbDateFormatter(user.birthDate),
+			user.gender,
 		]);
 	}
 
 	async deleteUser(userID: string): Promise<executionResult> {
-		return this.mapper.mapper(queryString.deleteOne, [userID]);
+		return this.mapper.mapper(userQueryString.deleteOne, [userID]);
 	}
 }

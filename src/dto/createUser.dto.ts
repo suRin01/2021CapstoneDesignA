@@ -7,7 +7,11 @@ export class createUserDTO {
 	@IsString()
 	readonly id: string;
 	@IsString()
+	readonly profileImage: string;
+	@IsString()
 	readonly password: string;
+	@IsString()
+	readonly email: string;
 	@IsString()
 	readonly phoneNumber: string;
 
@@ -16,6 +20,4 @@ export class createUserDTO {
 	readonly birthDate: Date;
 	@IsString()
 	readonly gender: string;
-	@IsString()
-	readonly mainCharacter: string;
 }

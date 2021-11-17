@@ -5,7 +5,7 @@ import { join } from "path";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule);
+	const app = await NestFactory.create<NestExpressApplication>(AppModule); // 메소드에 유형을 전달하면 app 객체는 해당 특정 플랫폼에서만 사용할 수 있는 메소드를 갖게 됩니다. 그러나 실제로 기본 플랫폼 API에 액세스하려는 경우를 제외하고는 유형을 지정할 필요는 없습니다.
 
 	// whiteList -> 엔티티 데코레이터에 없는 프로퍼티 값은 무조건 거름
 	// forbidNonWhitelisted -> 엔티티 데코레이터에 없는 값 인입시 그 값에 대한 에러메세지 알려줌

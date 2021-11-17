@@ -59,12 +59,13 @@ export class Mapper {
 						idx: Number.parseInt(tempResult.idx),
 						name: tempResult.name,
 						id: tempResult.id,
+						profileImage: tempResult.profileImage,
 						password: tempResult.password,
+						email: tempResult.email,
 						phoneNumber: tempResult.phoneNumber,
 						birthDate: tempResult.birthDate,
 						gender: tempResult.gender,
-						mainCharacter: tempResult.mainCharacter,
-						timestamp: tempResult.timestamp,
+						createdAt: tempResult.createdAt,
 					});
 				}
 			}

@@ -10,7 +10,13 @@ export class UpdateUserDTO {
 	id: string;
 	@IsString()
 	@Optional()
+	profileImage: string;
+	@IsString()
+	@Optional()
 	password: string;
+	@IsString()
+	@Optional()
+	email: string;
 	@IsString()
 	@Optional()
 	phoneNumber: string;
@@ -20,7 +26,4 @@ export class UpdateUserDTO {
 	@IsString()
 	@Optional()
 	gender: string;
-	@IsString()
-	@Optional()
-	mainCharacter: string;
 }

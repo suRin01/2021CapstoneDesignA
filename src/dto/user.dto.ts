@@ -9,18 +9,19 @@ export class UserDTO {
 	@IsString()
 	id: string;
 	@IsString()
+	profileImage: string;
+	@IsString()
 	password: string;
+	@IsString()
+	email: string;
 	@IsString()
 	phoneNumber: string;
 	@IsDate()
 	birthDate: Date;
 	@IsString()
 	gender: string;
-	@IsString()
-	@Optional()
-	mainCharacter: string;
 	@IsDate()
-	timestamp: Date;
+	createdAt: Date;
 }
 
 export class executionResult {
