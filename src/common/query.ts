@@ -11,6 +11,8 @@ export class userQueryString {
 
 	public static readonly login =
 		"SELECT * FROM `Capstone2021`.`users` WHERE `user_id`;";
+
+	public static readonly createOautOne:string = "INSERT INTO `LostArkStat`.`Users` (`name`, `id`, `email`, `is_oauth_register`) VALUES (?, ?, ? ,?)";
 }
 
 export class postQueryString {

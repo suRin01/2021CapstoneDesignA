@@ -1,5 +1,4 @@
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { UserDTO } from "./user.dto";
 
 export class PostDTO {
 	@IsNumber()
@@ -12,9 +11,4 @@ export class PostDTO {
 	heart_count: number;
 	@IsDate()
 	created_at: Date;
-}
-
-export class executionResult {
-	status: number;
-	data: Array<PostDTO | UserDTO>;
 }

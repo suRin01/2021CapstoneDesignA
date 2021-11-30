@@ -1,37 +1,42 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
 import { JwtService } from "@nestjs/jwt";
+import { executionResult } from "src/dto/executionResult.dto";
+import * as bcrypt from "bcrypt";
+import jwtPayload from "src/model/jwt.payload.model";
+import JwtToken from "src/model/jwt.token.model";
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private readonly mapper: Mapper,
-		private readonly jwtService: JwtService,
-	) {}
+	constructor(private readonly mapper: Mapper, private readonly jwtService: JwtService) {}
 
-	async validate(userid: string, userpw: string): Promise<any> {
-		const findOne = await this.mapper.mapper(userQueryString.findOne, [
-			userid,
-		]);
-		console.log(findOne.data[0]["password"]);
+	async validate(userid: string, userpw: string): Promise<executionResult> {
+		const findOne: executionResult = await this.mapper.mapper(userQueryString.findOne, [userid]);
 
 		if (
 			findOne.data.length !== 0 &&
-			findOne.data[0]["password"] === userpw
+			(await bcrypt.compare(userpw, findOne.data[0]["password"])) &&
+			findOne.data[0]["is_deleted"] != true
 		) {
 			return findOne;
 		} else {
-			return false;
+			return { status: 401, data: [] };
 		}
 	}
-	//user: userid: string, password: string
-	async login(user: any) {
-		// const payload = { username: user.username, sub: user.user_id };
-		const payload = { userid: user.userid };
+
+	getAccessToken(user: jwtPayload): JwtToken {
+		const payload = { useranme: user.username, sub: user.sub };
 
 		return {
-			access_token: this.jwtService.sign(payload),
+			access_token: this.jwtService.sign(payload, {
+				secret: process.env.ACCESSJWTSECRET,
+				expiresIn: "5m",
+			}),
+			refresh_token: this.jwtService.sign(payload, {
+				secret: process.env.REFRESHJWTSECRET,
+				expiresIn: "7d",
+			}),
 		};
 	}
 }

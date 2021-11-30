@@ -1,7 +1,7 @@
 import { Get, Controller, Post, Body, Param, Patch } from "@nestjs/common";
 import { UserServcie } from "../service/user.service";
 
-import { executionResult } from "../dto/user.dto";
+import { executionResult } from "src/dto/executionResult.dto";
 import { CreateUserDTO } from "../dto/createUser.dto";
 
 @Controller("user")

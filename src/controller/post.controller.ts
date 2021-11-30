@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { CreatePostDTO } from "../dto/createPost.dto";
-import { executionResult } from "../dto/post.dto";
+import { executionResult } from "src/dto/executionResult.dto";
 import { PostService } from "../service/post.service";
 
 @Controller("post")

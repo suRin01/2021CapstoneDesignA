@@ -1,6 +1,5 @@
 import { Type } from "class-transformer";
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { PostDTO } from "./post.dto";
 
 export class UserDTO {
 	@IsNumber()
@@ -24,9 +23,4 @@ export class UserDTO {
 	gender: string;
 	@IsDate()
 	created_at: Date;
-}
-
-export class executionResult {
-	status: number;
-	data: Array<UserDTO | PostDTO>;
 }

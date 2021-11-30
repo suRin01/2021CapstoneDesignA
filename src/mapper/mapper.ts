@@ -2,7 +2,8 @@ import mysql from "mysql2/promise";
 import "dotenv/config";
 
 import { database } from "../util/db";
-import { UserDTO, executionResult } from "../dto/user.dto";
+import { UserDTO } from "../dto/user.dto";
+import { executionResult } from "src/dto/executionResult.dto";
 import { stderr } from "process";
 
 export class Mapper {

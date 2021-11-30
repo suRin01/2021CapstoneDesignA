@@ -2,17 +2,15 @@ import {
 	Get,
 	Controller,
 	Post,
-	Body,
-	Param,
-	Patch,
 	Render,
 	UseGuards,
 	Request,
-	Session,
 	Res,
+	Redirect,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { session } from "passport";
+import { executionResult } from "src/dto/executionResult.dto";
+import { UserDTO } from "src/dto/user.dto";
 
 import { AuthService } from "../service/auth.service";
 
@@ -23,26 +21,30 @@ export class AuthController {
 	@Get()
 	@Render("login")
 	async getUser() {
-		return { message: "hi" };
+		return;
 	}
 
 	@UseGuards(AuthGuard("local"))
+	@Redirect("/", 302)
 	@Post()
 	async login(
-		@Session() session,
 		@Request() req,
-		@Res({ passthrough: true }) response,
+		@Res({ passthrough: true }) res,
 	): Promise<any> {
-		console.log("req.user:", req.user);
-		console.log("req.user.data[0]:", req.user.data[0].user_id);
+		const userData: UserDTO = req.user.data[0] as UserDTO;
 
-		// return "success";
-		return this.authService.login({
-			userid: req.user.data[0].user_id, //req.userid,
+		const jwtToken = this.authService.getAccessToken({
+			sub: userData._id.toString(),
+			username: userData.user_id
 		});
-		// return this.authService.login({
-		// 	useranme: req.username,
-		// 	sub: req.userpw,
-		// });
+
+		
+		res.cookie("Authorization", jwtToken.access_token, {
+			httpOnly: true,
+		});
+		res.cookie("Refresh", jwtToken.refresh_token, {
+			httpOnly: true,
+		});
+		return;
 	}
 }
