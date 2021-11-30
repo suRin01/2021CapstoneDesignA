@@ -1,29 +1,6 @@
-import { Optional } from "@nestjs/common";
-import { IsDate, IsString } from "class-validator";
+import { OmitType, PartialType } from "@nestjs/mapped-types";
+import { UserDTO } from "./user.dto";
 
-export class UpdateUserDTO {
-	@IsString()
-	@Optional()
-	name: string;
-	@IsString()
-	@Optional()
-	id: string;
-	@IsString()
-	@Optional()
-	profileImage: string;
-	@IsString()
-	@Optional()
-	password: string;
-	@IsString()
-	@Optional()
-	email: string;
-	@IsString()
-	@Optional()
-	phoneNumber: string;
-	@IsDate()
-	@Optional()
-	birthDate: Date;
-	@IsString()
-	@Optional()
-	gender: string;
-}
+export class UpdateUserDTO extends PartialType(
+	OmitType(UserDTO, ["_id", "created_at"] as const),
+) {}

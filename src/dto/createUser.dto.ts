@@ -1,23 +1,7 @@
-import { Type } from "class-transformer";
-import { IsDate, IsString } from "class-validator";
+import { OmitType } from "@nestjs/mapped-types";
+import { UserDTO } from "./user.dto";
 
-export class createUserDTO {
-	@IsString()
-	readonly name: string;
-	@IsString()
-	readonly id: string;
-	@IsString()
-	readonly profileImage: string;
-	@IsString()
-	readonly password: string;
-	@IsString()
-	readonly email: string;
-	@IsString()
-	readonly phoneNumber: string;
-
-	@IsDate()
-	@Type(() => Date)
-	readonly birthDate: Date;
-	@IsString()
-	readonly gender: string;
-}
+export class CreateUserDTO extends OmitType(UserDTO, [
+	"_id",
+	"created_at",
+] as const) {}

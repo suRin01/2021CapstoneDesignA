@@ -3,6 +3,7 @@ import "dotenv/config";
 
 import { database } from "../util/db";
 import { UserDTO, executionResult } from "../dto/user.dto";
+import { stderr } from "process";
 
 export class Mapper {
 	constructor(private db: database) {
@@ -55,18 +56,13 @@ export class Mapper {
 					idx++
 				) {
 					const tempResult = (result[0] as any[])[idx];
-					resultArr.push({
-						idx: Number.parseInt(tempResult.idx),
-						name: tempResult.name,
-						id: tempResult.id,
-						profileImage: tempResult.profileImage,
-						password: tempResult.password,
-						email: tempResult.email,
-						phoneNumber: tempResult.phoneNumber,
-						birthDate: tempResult.birthDate,
-						gender: tempResult.gender,
-						createdAt: tempResult.createdAt,
+					const keyArray = Object.getOwnPropertyNames(tempResult);
+					const putValue: any = {};
+
+					keyArray.forEach((element) => {
+						putValue[element] = tempResult[element];
 					});
+					resultArr.push(putValue);
 				}
 			}
 			console.log("Query execution success");

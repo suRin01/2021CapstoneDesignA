@@ -1,7 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
-import { UserServcie } from "./user.service";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
@@ -26,9 +25,10 @@ export class AuthService {
 			return false;
 		}
 	}
-
+	//user: userid: string, password: string
 	async login(user: any) {
-		const payload = { useranme: user.username, sub: user.userId };
+		// const payload = { username: user.username, sub: user.user_id };
+		const payload = { userid: user.userid };
 
 		return {
 			access_token: this.jwtService.sign(payload),

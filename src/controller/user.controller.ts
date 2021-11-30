@@ -2,7 +2,7 @@ import { Get, Controller, Post, Body, Param, Patch } from "@nestjs/common";
 import { UserServcie } from "../service/user.service";
 
 import { executionResult } from "../dto/user.dto";
-import { createUserDTO } from "../dto/createUser.dto";
+import { CreateUserDTO } from "../dto/createUser.dto";
 
 @Controller("user")
 export class UserController {
@@ -15,15 +15,15 @@ export class UserController {
 	}
 
 	@Post()
-	async createUser(@Body() user: createUserDTO): Promise<executionResult> {
+	async createUser(@Body() user: CreateUserDTO): Promise<executionResult> {
 		return await this.userService.createUser(user);
 	}
 
 	@Patch("/:id")
 	async patchUser(
-		@Param("id") user: createUserDTO,
+		@Param("id") user: CreateUserDTO,
 	): Promise<executionResult> {
-		await this.userService.deleteUser(user.id);
+		await this.userService.deleteUser(user.user_id);
 
 		return await this.userService.createUser(user);
 	}
