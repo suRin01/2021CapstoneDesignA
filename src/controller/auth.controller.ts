@@ -13,8 +13,6 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { session } from "passport";
-import { AuthUserDto } from "../dto/auth.dto";
-import { executionResult } from "../dto/user.dto";
 
 import { AuthService } from "../service/auth.service";
 
@@ -35,9 +33,13 @@ export class AuthController {
 		@Request() req,
 		@Res({ passthrough: true }) response,
 	): Promise<any> {
-		console.log(req.user);
+		console.log("req.user:", req.user);
+		console.log("req.user.data[0]:", req.user.data[0].user_id);
 
-		return "success";
+		// return "success";
+		return this.authService.login({
+			userid: req.user.data[0].user_id, //req.userid,
+		});
 		// return this.authService.login({
 		// 	useranme: req.username,
 		// 	sub: req.userpw,

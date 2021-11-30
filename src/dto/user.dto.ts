@@ -1,30 +1,32 @@
-import { Optional } from "@nestjs/common";
-import { IsDate, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsDate, IsNumber, IsString } from "class-validator";
+import { PostDTO } from "./post.dto";
 
 export class UserDTO {
+	@IsNumber()
+	_id: number;
 	@IsString()
-	idx: number;
+	user_id: string;
 	@IsString()
-	name: string;
+	profile_image: string;
 	@IsString()
-	id: string;
-	@IsString()
-	profileImage: string;
+	username: string;
 	@IsString()
 	password: string;
 	@IsString()
 	email: string;
 	@IsString()
-	phoneNumber: string;
+	phone_number: string;
 	@IsDate()
-	birthDate: Date;
+	@Type(() => Date)
+	birth_date: Date;
 	@IsString()
 	gender: string;
 	@IsDate()
-	createdAt: Date;
+	created_at: Date;
 }
 
 export class executionResult {
 	status: number;
-	data: Array<UserDTO>;
+	data: Array<UserDTO | PostDTO>;
 }

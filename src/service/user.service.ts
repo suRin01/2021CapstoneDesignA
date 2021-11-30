@@ -3,7 +3,7 @@ import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
 import { executionResult, UserDTO } from "../dto/user.dto";
 import { dateParser } from "../util/dateParser";
-import { createUserDTO } from "../dto/createUser.dto";
+import { CreateUserDTO } from "../dto/createUser.dto";
 import { UpdateUserDTO } from "../dto/updateUser.dto";
 
 @Injectable()
@@ -14,28 +14,28 @@ export class UserServcie {
 		return await this.mapper.mapper(userQueryString.findOne, [id]);
 	}
 
-	async createUser(user: createUserDTO): Promise<executionResult> {
+	async createUser(user: CreateUserDTO): Promise<executionResult> {
 		return await this.mapper.mapper(userQueryString.createOne, [
-			user.name,
-			user.id,
-			user.profileImage,
+			user.user_id,
+			user.profile_image,
+			user.username,
 			user.password,
 			user.email,
-			user.phoneNumber,
-			dateParser.dbDateFormatter(user.birthDate),
+			user.phone_number,
+			dateParser.dbDateFormatter(user.birth_date),
 			user.gender,
 		]);
 	}
 
 	async updateUser(user: UpdateUserDTO): Promise<executionResult> {
 		return await this.mapper.mapper(userQueryString.updateOne, [
-			user.name,
-			user.id,
-			user.profileImage,
+			user.user_id,
+			user.profile_image,
+			user.username,
 			user.password,
 			user.email,
-			user.phoneNumber,
-			dateParser.dbDateFormatter(user.birthDate),
+			user.phone_number,
+			dateParser.dbDateFormatter(user.birth_date),
 			user.gender,
 		]);
 	}
