@@ -4,7 +4,7 @@ import { OAuth2Client } from "google-auth-library";
 import "dotenv/config";
 import { oauth2_v2 } from "googleapis";
 import { UserServcie } from "src/service/user.service";
-import { executionResult } from "src/dto/executionResult.dto";
+import { ExecutionResult } from "src/dto/executionResult.dto";
 import { AuthService } from "src/service/auth.service";
 import JwtToken from "src/model/jwt.token.model";
 import { Response } from "express";
@@ -27,7 +27,7 @@ export class GoogleAuthenticationController {
 			await this.googleAuthenticationService.getUserProfile(result)
 		).data;
 
-		const findUser: executionResult = await this.userService.getUser(userProfile.id);
+		const findUser: ExecutionResult = await this.userService.getUser(userProfile.id);
 
 		if (findUser.data.length === 0) {
 			await this.userService.createOauthUser(userProfile);

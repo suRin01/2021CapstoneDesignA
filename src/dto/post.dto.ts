@@ -1,14 +1,23 @@
-import { IsDate, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, isString, IsString } from "class-validator";
 
 export class PostDTO {
 	@IsNumber()
-	_id: number;
+	public readonly _id: number;
 	@IsString()
-	user_id: string;
+	public readonly user_id: string;
 	@IsString()
-	content: string;
+	public readonly content: string;
 	@IsNumber()
-	heart_count: number;
+	public readonly heart_count: number;
 	@IsDate()
-	created_at: Date;
+	public readonly created_at: Date;
+	@IsNumber()
+	public readonly heartCount: number;
+	@IsString()
+	public readonly username: string;
+	@IsString()
+	public readonly isDeleted: string;
+	@IsString()
+	public readonly profile_image: string;
+
 }

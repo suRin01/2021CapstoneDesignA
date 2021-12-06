@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
 import { JwtService } from "@nestjs/jwt";
-import { executionResult } from "src/dto/executionResult.dto";
+import { ExecutionResult } from "src/dto/executionResult.dto";
 import * as bcrypt from "bcrypt";
 import jwtPayload from "src/model/jwt.payload.model";
 import JwtToken from "src/model/jwt.token.model";
@@ -11,8 +11,8 @@ import JwtToken from "src/model/jwt.token.model";
 export class AuthService {
 	constructor(private readonly mapper: Mapper, private readonly jwtService: JwtService) {}
 
-	async validate(userid: string, userpw: string): Promise<executionResult> {
-		const findOne: executionResult = await this.mapper.mapper(userQueryString.findOne, [userid]);
+	async validate(userid: string, userpw: string): Promise<ExecutionResult> {
+		const findOne: ExecutionResult = await this.mapper.mapper(userQueryString.findOne, [userid]);
 
 		if (
 			findOne.data.length !== 0 &&

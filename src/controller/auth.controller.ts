@@ -9,12 +9,11 @@ import {
 	Redirect,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { executionResult } from "src/dto/executionResult.dto";
 import { UserDTO } from "src/dto/user.dto";
 
 import { AuthService } from "../service/auth.service";
 
-@Controller("auth")
+@Controller("api/auth")
 export class AuthController {
 	constructor(private authService: AuthService) {}
 

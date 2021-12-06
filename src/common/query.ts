@@ -27,6 +27,7 @@ export class postQueryString {
 		"INSERT INTO `Capstone2021`.`posts` (`user_id`, `content`) VALUES (?, ?);";
 	public static readonly deleteOne =
 		"DELETE FROM `Capstone2021`.`posts` WHERE (`_id` = ?);";
+	public static readonly findPosts = "select A.*, B.profile_image, B.username, B.Is_deleted from Capstone2021.posts as A left join Capstone2021.users as B using(user_id) where A._id >= ? limit ?;";
 }
 
 export class commentQueryString {

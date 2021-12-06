@@ -1,7 +1,7 @@
 import { Injectable, } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
-import { executionResult } from "src/dto/executionResult.dto";
+import { ExecutionResult } from "src/dto/executionResult.dto";
 import { dateParser } from "../util/dateParser";
 import { CreateUserDTO } from "../dto/createUser.dto";
 import { UpdateUserDTO } from "../dto/updateUser.dto";
@@ -14,11 +14,11 @@ import { WinstonLogger } from "src/util/logger";
 export class UserServcie {
 	constructor(private readonly mapper: Mapper) {}
 
-	async getUser(id: string): Promise<executionResult> {
+	async getUser(id: string): Promise<ExecutionResult> {
 		return await this.mapper.mapper(userQueryString.findOne, [id]);
 	}
 
-	async createUser(user: CreateUserDTO): Promise<executionResult> {
+	async createUser(user: CreateUserDTO): Promise<ExecutionResult> {
 		// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 		const saltRound: number = 10;
 
@@ -41,11 +41,11 @@ export class UserServcie {
 	// 	return await this.mapper.mapper(userQueryString.updateOne, [user.username, user.id, user.password]);
 	// }
 
-	async deleteUser(userID: string): Promise<executionResult> {
+	async deleteUser(userID: string): Promise<ExecutionResult> {
 		return await this.mapper.mapper(userQueryString.deleteOne, [userID]);
 	}
 
-	async createOauthUser(userProfile: oauth2_v2.Schema$Userinfo): Promise<executionResult> {
+	async createOauthUser(userProfile: oauth2_v2.Schema$Userinfo): Promise<ExecutionResult> {
 		return await this.mapper.mapper(userQueryString.createOautOne, [
 			userProfile.name,
 			userProfile.id,
