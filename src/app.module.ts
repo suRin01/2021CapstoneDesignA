@@ -4,9 +4,17 @@ import { UserModule } from "./modules/user.module";
 import { PostModule } from "./modules/post.module";
 import { MainModule } from "./modules/main.module";
 import { GoogleAuthenticationModule } from "./modules/googleAuthentication.module";
+import { CommentModule } from "./modules/comment.module";
 
 @Module({
-	imports: [UserModule, AuthModule, PostModule, MainModule, GoogleAuthenticationModule],
+	imports: [
+		UserModule,
+		AuthModule,
+		PostModule,
+		MainModule,
+		GoogleAuthenticationModule,
+		CommentModule,
+	],
 	controllers: [],
 	providers: [],
 })

@@ -9,10 +9,16 @@ import JwtToken from "src/model/jwt.token.model";
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly mapper: Mapper, private readonly jwtService: JwtService) {}
+	constructor(
+		private readonly mapper: Mapper,
+		private readonly jwtService: JwtService,
+	) {}
 
 	async validate(userid: string, userpw: string): Promise<ExecutionResult> {
-		const findOne: ExecutionResult = await this.mapper.mapper(userQueryString.findOne, [userid]);
+		const findOne: ExecutionResult = await this.mapper.mapper(
+			userQueryString.findOne,
+			[userid],
+		);
 
 		if (
 			findOne.data.length !== 0 &&
@@ -26,12 +32,12 @@ export class AuthService {
 	}
 
 	getAccessToken(user: jwtPayload): JwtToken {
-		const payload = { useranme: user.username, sub: user.sub };
+		const payload = { username: user.username, sub: user.sub };
 
 		return {
 			access_token: this.jwtService.sign(payload, {
 				secret: process.env.ACCESSJWTSECRET,
-				expiresIn: "5m",
+				expiresIn: "1d",
 			}),
 			refresh_token: this.jwtService.sign(payload, {
 				secret: process.env.REFRESHJWTSECRET,

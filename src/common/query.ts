@@ -12,7 +12,8 @@ export class userQueryString {
 	public static readonly login =
 		"SELECT * FROM `Capstone2021`.`users` WHERE `user_id`;";
 
-	public static readonly createOautOne:string = "INSERT INTO `LostArkStat`.`Users` (`name`, `id`, `email`, `is_oauth_register`) VALUES (?, ?, ? ,?)";
+	public static readonly createOautOne: string =
+		"INSERT INTO `LostArkStat`.`Users` (`name`, `id`, `email`, `is_oauth_register`) VALUES (?, ?, ? ,?)";
 }
 
 export class postQueryString {
@@ -27,18 +28,20 @@ export class postQueryString {
 		"INSERT INTO `Capstone2021`.`posts` (`user_id`, `content`) VALUES (?, ?);";
 	public static readonly deleteOne =
 		"DELETE FROM `Capstone2021`.`posts` WHERE (`_id` = ?);";
-	public static readonly findPosts = "select A.*, B.profile_image, B.username, B.Is_deleted from Capstone2021.posts as A left join Capstone2021.users as B using(user_id) where A._id >= ? limit ?;";
+	public static readonly findPosts =
+		"select A.*, B.profile_image, B.username, B.Is_deleted from Capstone2021.posts as A left join Capstone2021.users as B using(user_id) order by A._id DESC limit 10 offset ?;";
 }
 
 export class commentQueryString {
 	public static readonly findAll =
-		"SELECT * FROM `Capstone2021`.`comments` WHERE `post_id`=?;"; // 한 개의 포스터에 모든 댓글
+		"select A.*, B.username, B.profile_image from Capstone2021.comments as A left join Capstone2021.users as B using(user_id) where A.post_id = ? && A.is_deleted = 0 order by A.created_at;"; // 한 개의 포스터에 모든 댓글
 	// public static readonly findOne =
 	// 	"SELECT * FROM `Capstone2021`.`comments ` WHERE `_id`=?;";
 	public static readonly updateOne =
 		"UPDATE `Capstone2021`.`comments` SET `user_id` = ?, `post_id` = ?, comment_id = ?, `comment_text` = ? WHERE (`_id` = ?);";
 	public static readonly createOne =
-		"INSERT INTO `Capstone2021`.`comments` (`user_id`, `post_id`,`comment_id` , `comment_text`) VALUES (?, ?, ?, ?);";
+		"INSERT INTO `Capstone2021`.`comments` (`user_id`, `post_id`,`parent_id`, `content`) VALUES (?, ?, ?, ?);";
 	public static readonly deleteOne =
-		"DELETE FROM `Capstone2021`.`comments` WHERE (`_id` = ?);";
+		"UPDATE `Capstone2021`.`comments` SET `is_deleted` = 1 WHERE (_id = ?);";
+	// "DELETE FROM `Capstone2021`.`comments` WHERE (`_id` = ?);";
 }

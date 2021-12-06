@@ -4,8 +4,8 @@ import "dotenv/config";
 import { database } from "../util/db";
 import { UserDTO } from "../dto/user.dto";
 import { ExecutionResult } from "src/dto/executionResult.dto";
-import { stderr } from "process";
 import { PostDTO } from "src/dto/post.dto";
+import { CommentDTO } from "src/dto/comment.dto";
 
 export class Mapper {
 	constructor(private db: database) {
@@ -14,7 +14,7 @@ export class Mapper {
 	}
 	public mapper = async (
 		query: string,
-		data: (string|number)[] = [],
+		data: (string | number)[] = [],
 	): Promise<ExecutionResult> => {
 		//Get database Connection
 		const conn: mysql.PoolConnection | undefined =
@@ -45,10 +45,10 @@ export class Mapper {
 		try {
 			conn.release();
 		} catch (err) {
-			console.log(err);
+			console.debug(err);
 		}
 
-		const resultArr: Array<UserDTO|PostDTO> = [];
+		const resultArr: Array<UserDTO | PostDTO | CommentDTO> = [];
 		//Return result
 		if (Array.isArray(result)) {
 			if (result !== undefined) {

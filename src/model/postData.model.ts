@@ -1,28 +1,28 @@
 import { IsOptional, IsString } from "class-validator";
 
-export class PostObject{
+export class PostObject {
 	@IsString()
-	public readonly id: string;
+	public readonly _id: string;
 	public readonly content: string;
 	public readonly createAt: Date;
-	public readonly user: User;
+	public readonly updatedAt: Date;
+	public readonly User: User;
 	public readonly Images: ImageObject[];
-
+	public readonly Like: User[];
+	public readonly Comment: number;
 }
 
-class User{
+class User {
 	public readonly _id: string;
-	public readonly name: string;
-	public readonly Image: ImageObject;
-
+	public readonly name?: string;
+	public readonly Image?: ImageObject;
 }
 
-class ImageObject{
+class ImageObject {
 	@IsOptional()
 	public readonly _id?: string;
 	public readonly path: string;
 }
-
 
 /*
 {

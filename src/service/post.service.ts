@@ -12,8 +12,8 @@ export class PostService {
 		return await this.mapper.mapper(postQueryString.findOne, [idx]);
 	}
 
-	async getPosts(idx: string, count: number): Promise<ExecutionResult>{
-		return await this.mapper.mapper(postQueryString.findPosts, [idx, count]);
+	async getPosts(offset: number): Promise<ExecutionResult> {
+		return await this.mapper.mapper(postQueryString.findPosts, [offset]);
 	}
 
 	async createPost(post: CreatePostDTO): Promise<ExecutionResult> {

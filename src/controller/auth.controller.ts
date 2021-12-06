@@ -26,18 +26,14 @@ export class AuthController {
 	@UseGuards(AuthGuard("local"))
 	@Redirect("/", 302)
 	@Post()
-	async login(
-		@Request() req,
-		@Res({ passthrough: true }) res,
-	): Promise<any> {
+	async login(@Request() req, @Res({ passthrough: true }) res): Promise<any> {
 		const userData: UserDTO = req.user.data[0] as UserDTO;
 
 		const jwtToken = this.authService.getAccessToken({
 			sub: userData._id.toString(),
-			username: userData.user_id
+			username: userData.user_id,
 		});
 
-		
 		res.cookie("Authorization", jwtToken.access_token, {
 			httpOnly: true,
 		});

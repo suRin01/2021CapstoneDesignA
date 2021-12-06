@@ -1,10 +1,9 @@
-import { Injectable, } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Mapper } from "../mapper/mapper";
 import { userQueryString } from "../common/query";
 import { ExecutionResult } from "src/dto/executionResult.dto";
 import { dateParser } from "../util/dateParser";
 import { CreateUserDTO } from "../dto/createUser.dto";
-import { UpdateUserDTO } from "../dto/updateUser.dto";
 import * as bcrypt from "bcrypt";
 
 import { oauth2_v2 } from "googleapis";
@@ -27,7 +26,7 @@ export class UserServcie {
 		WinstonLogger.getInstance().info("Create New User");
 		return await this.mapper.mapper(userQueryString.createOne, [
 			user.user_id,
-			"",
+			user.profile_image,
 			user.username,
 			hashedPassword,
 			user.email,
@@ -45,7 +44,9 @@ export class UserServcie {
 		return await this.mapper.mapper(userQueryString.deleteOne, [userID]);
 	}
 
-	async createOauthUser(userProfile: oauth2_v2.Schema$Userinfo): Promise<ExecutionResult> {
+	async createOauthUser(
+		userProfile: oauth2_v2.Schema$Userinfo,
+	): Promise<ExecutionResult> {
 		return await this.mapper.mapper(userQueryString.createOautOne, [
 			userProfile.name,
 			userProfile.id,

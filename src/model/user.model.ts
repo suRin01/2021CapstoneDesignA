@@ -2,19 +2,21 @@ import { IsBoolean, IsNumber, IsString } from "class-validator";
 
 export default class User {
 	@IsNumber()
-	public id: number;
+	public readonly id?: number;
 	@IsString()
-	public email: string;
+	public readonly email?: string;
 	@IsString()
-	public phoneNumber?: string;
+	public readonly phoneNumber?: string;
 	@IsString()
-	public name: string;
+	public readonly profileImage?: string;
 	@IsString()
-	public password?: string;
+	public readonly name: string;
+	@IsString()
+	public readonly password?: string;
 	@IsBoolean()
-	public isRegisteredWithGoogle: boolean;
+	public readonly isRegisteredWithGoogle?: boolean;
 	@IsString()
-	public currentHashedRefreshToken?: string;
+	public readonly currentHashedRefreshToken?: string;
 	@IsBoolean()
-	public isEmailConfirmed: boolean;
+	public readonly isEmailConfirmed?: boolean;
 }
