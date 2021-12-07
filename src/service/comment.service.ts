@@ -25,9 +25,13 @@ export class CommentService {
 		return result;
 	}
 
-	async deleteComment(commentId: number): Promise<ExecutionResult> {
+	async deleteComment(
+		commentId: number,
+		username: string,
+	): Promise<ExecutionResult> {
 		const result = await this.mapper.mapper(commentQueryString.deleteOne, [
 			commentId,
+			username,
 		]);
 
 		return result;

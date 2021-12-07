@@ -20,6 +20,7 @@ import User from "src/model/user.model";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { extname } from "path";
+import { UserDTO } from "src/dto/user.dto";
 
 @Controller("api/user")
 export class UserController {
@@ -31,14 +32,17 @@ export class UserController {
 		const jwtTokenData = RequestUtility.fromAuthCookie()(req);
 		const payload = RequestUtility.parseJwt(jwtTokenData);
 
-		const userData = await this.userService.getUser(payload.username);
-
+		const result = await this.userService.getUser(payload.username);
+		const userData = (result.data as UserDTO[])[0];
 		return {
-			name: userData.data[0].username,
-			_id: userData.data[0]._id,
+			name: userData.username,
+			_id: userData._id,
 			Image: {
-				path: userData.data[0].profile_image,
+				path: userData.profile_image,
 			},
+			email: userData.email,
+			birthday: userData.birth_date,
+			gender: userData.gender,
 		};
 	}
 

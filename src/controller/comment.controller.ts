@@ -8,6 +8,7 @@ import {
 	Query,
 	UseGuards,
 	Req,
+	Param,
 } from "@nestjs/common";
 
 import { ExecutionResult } from "src/dto/executionResult.dto";
@@ -46,6 +47,15 @@ export class CommentController {
 		return result;
 	}
 
-	@Delete()
-	async deleteComment() {}
+	@Delete("/:id")
+	async deleteComment(@Param("id") commentId: number, @Req() req) {
+		const jwtTokenData: string = RequestUtility.fromAuthCookie()(req);
+		const userData = RequestUtility.parseJwt(jwtTokenData);
+
+		const result = await this.commentService.deleteComment(
+			commentId,
+			userData.username,
+		);
+		console.debug(commentId);
+	}
 }

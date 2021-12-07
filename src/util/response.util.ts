@@ -13,7 +13,7 @@ export class dataCasting {
 		if (executionResult.status !== 200) {
 			throw InternalServerErrorException;
 		} else if (executionResult.data.length === 0) {
-			throw NotFoundException;
+			return [];
 		}
 		const result: PostObject[] = [];
 		for (let idx = 0, len = executionResult.data.length; idx < len; idx++) {
@@ -28,8 +28,8 @@ export class dataCasting {
 					name: data.username,
 					Image: { path: data.profile_image },
 				},
-				Images: [],
-				Like: [],
+				Images: data.Images,
+				Like: data.Like,
 				Comment: data.comments,
 			};
 			result.push(tempPost);
@@ -44,7 +44,7 @@ export class dataCasting {
 		if (executionResult.status !== 200) {
 			throw InternalServerErrorException;
 		} else if (executionResult.data.length === 0) {
-			throw NotFoundException;
+			return [];
 		}
 		const result: CommentData[] = [];
 		for (let idx = 0, len = executionResult.data.length; idx < len; idx++) {

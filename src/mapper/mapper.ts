@@ -50,30 +50,29 @@ export class Mapper {
 
 		const resultArr: Array<UserDTO | PostDTO | CommentDTO> = [];
 		//Return result
-		if (Array.isArray(result)) {
-			if (result !== undefined) {
-				for (
-					let idx = 0, len = (result[0] as any[]).length;
-					idx < len;
-					idx++
-				) {
-					const tempResult = (result[0] as any[])[idx];
-					const keyArray = Object.getOwnPropertyNames(tempResult);
-					const putValue: any = {};
+		if (Array.isArray(result) && result !== undefined) {
+			for (
+				let idx = 0, len = (result[0] as any[]).length;
+				idx < len;
+				idx++
+			) {
+				const tempResult = (result[0] as any[])[idx];
+				const keyArray = Object.getOwnPropertyNames(tempResult);
+				const putValue: any = {};
 
-					keyArray.forEach((element) => {
-						putValue[element] = tempResult[element];
-					});
-					resultArr.push(putValue);
-				}
+				keyArray.forEach((element) => {
+					putValue[element] = tempResult[element];
+				});
+				resultArr.push(putValue);
 			}
-			console.log("Query execution success");
-			return { status: 200, data: resultArr };
-		} else if (result !== undefined) {
-			console.log("Query execution success with no returning data");
-			return { status: 200, data: [] };
+			console.debug("Query execution success");
+			return {
+				status: 200,
+				data: resultArr,
+				affectedRow: (result[0] as mysql.OkPacket).insertId,
+			};
 		} else {
-			console.error("Query execution failed");
+			console.debug("Query execution failed");
 			return { status: 500, data: [] };
 		}
 	};

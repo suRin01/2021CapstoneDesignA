@@ -23,7 +23,10 @@ export class PostService {
 		]);
 	}
 
-	async deletePost(idx: string): Promise<ExecutionResult> {
-		return await this.mapper.mapper(postQueryString.deleteOne, [idx]);
+	async deletePost(idx: string, userId: number): Promise<ExecutionResult> {
+		return await this.mapper.mapper(postQueryString.deleteOne, [
+			idx,
+			userId,
+		]);
 	}
 }

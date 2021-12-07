@@ -7,6 +7,7 @@ import {
 	Request,
 	Res,
 	Redirect,
+	Delete,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { UserDTO } from "src/dto/user.dto";
@@ -16,12 +17,6 @@ import { AuthService } from "../service/auth.service";
 @Controller("api/auth")
 export class AuthController {
 	constructor(private authService: AuthService) {}
-
-	@Get()
-	@Render("login")
-	async getUser() {
-		return;
-	}
 
 	@UseGuards(AuthGuard("local"))
 	@Redirect("/", 302)
@@ -40,6 +35,11 @@ export class AuthController {
 		res.cookie("Refresh", jwtToken.refresh_token, {
 			httpOnly: true,
 		});
+		return;
+	}
+
+	@Delete("logout")
+	async logout() {
 		return;
 	}
 }

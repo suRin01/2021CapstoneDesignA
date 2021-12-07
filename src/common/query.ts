@@ -27,9 +27,10 @@ export class postQueryString {
 	public static readonly createOne =
 		"INSERT INTO `Capstone2021`.`posts` (`user_id`, `content`) VALUES (?, ?);";
 	public static readonly deleteOne =
-		"DELETE FROM `Capstone2021`.`posts` WHERE (`_id` = ?);";
+		"UPDATE `Capstone2021`.`posts` SET `is_deleted` = 1 WHERE (_id = ? && user_id = ? );";
+	// "DELETE FROM `Capstone2021`.`posts` WHERE (`_id` = ?);";
 	public static readonly findPosts =
-		"select A.*, B.profile_image, B.username, B.Is_deleted from Capstone2021.posts as A left join Capstone2021.users as B using(user_id) order by A._id DESC limit 10 offset ?;";
+		"select A.*, B.profile_image, B.username, B.Is_deleted from Capstone2021.posts as A left join Capstone2021.users as B ON B._id = A.user_id where A.is_deleted = 0 order by A._id DESC limit 10 offset ?;";
 }
 
 export class commentQueryString {
@@ -42,6 +43,22 @@ export class commentQueryString {
 	public static readonly createOne =
 		"INSERT INTO `Capstone2021`.`comments` (`user_id`, `post_id`,`parent_id`, `content`) VALUES (?, ?, ?, ?);";
 	public static readonly deleteOne =
-		"UPDATE `Capstone2021`.`comments` SET `is_deleted` = 1 WHERE (_id = ?);";
+		"UPDATE `Capstone2021`.`comments` SET `is_deleted` = 1 WHERE ( _id = ? and user_id = ? );";
 	// "DELETE FROM `Capstone2021`.`comments` WHERE (`_id` = ?);";
+}
+
+export class imageQueryString {
+	public static readonly findAll =
+		"select * from `Capstone2021`.`images` where post_id = ?;";
+	public static readonly createOne =
+		"insert into `Capstone2021`.`images` (`post_id`, `path`) values (?, ?);";
+}
+
+export class likeQueryString {
+	public static readonly createOne =
+		"insert into `Capstone2021`.`likes` (`post_id`, `user_id`) values( ?, ?)";
+	public static readonly deleteOne =
+		"delete from `Capstone2021`.`likes` where (`post_id` = ? and `user_id` = ?);";
+	public static readonly findAll =
+		"select `Capstone2021`.`likes`.`user_id` from `Capstone2021`.`likes` where (`post_id` = ?);";
 }
